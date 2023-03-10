@@ -1,0 +1,75 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Feb 17 13:39:26 2021
+
+@author: pauls
+"""
+
+import random
+
+pile=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+P1=[]
+P2=[]
+
+random.shuffle(pile)
+P1=pile[0:10]
+P2=pile[10:20]
+
+
+def est_vide1(P1):
+    return P1==[]
+
+def depiler1(P1):
+    if est_vide1(P1):
+        return []
+    else:
+        P1.pop()
+    return P1
+
+
+def est_vide2(P2):
+    return P2==[]
+
+def depiler2(P2):
+    if est_vide2(P2):
+        return []
+    else:
+        P2.pop()
+    return P2
+
+print(" ")
+print(depiler1(P1))
+print(depiler2(P2))
+print(" ")
+print(" ")
+
+def tour_jeu(P1,P2):
+    carte1=P1[0]
+    carte2=P2[0]
+    if carte1<carte2:
+        P1.pop(0)
+        P2.append(carte1)
+        P2.pop(0)
+        P2.append(carte2)
+        print("Carte Joueur 1: ",carte1)
+        print("Carte Joueur 2: ",carte2)
+        print(" ")
+        print("Joueur 2 gagne !")
+    elif carte1>carte2:
+        P2.pop(0)
+        P1.append(carte2)
+        P1.pop(0)
+        P1.append(carte1)
+        print("Carte Joueur 1: ",carte1)
+        print("Carte Joueur 2: ",carte2)
+        print(" ")
+        print("Joueur 1 gagne !")
+print(tour_jeu(P1,P2))
+
+
+
+
+
+
+
+

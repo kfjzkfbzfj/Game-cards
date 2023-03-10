@@ -1,0 +1,111 @@
+from random import shuffle
+
+game_cards=[]
+player1=[]
+player2=[]
+
+def shuffle_cards(player1,player2,game_cards):     #mix the desk and make the 4 colors appear
+    for i in range (2,15):
+        game_cards.append(i)
+        game_cards.append(i)
+        game_cards.append(i)
+        game_cards.append(i)  
+       
+    shuffle(game_cards)     #shuffle the cards and deal one out of two cards to each player   
+    for j in range(0,52,2):
+        card1=game_cards[j]
+        player1.append(card1)
+        card2=game_cards[j+1]
+        player2.append(card2)
+    return player1,player2
+        
+def result(player1,player2,card1,card2):        #replace the digits beyond 10 with the corresponding signs
+    if card1==14:
+        card1="A"
+    elif card2==14:
+        card2="A"
+    elif card1==13:
+        card1="K"
+    elif card2==13:
+        card2="K"
+    elif card1==12:
+        card1="Q"
+    elif card2==12:
+        card2="Q"
+    elif card1==11:
+        card1="V"
+    elif card2==11:
+        card2="V"
+    print("Player 1          Player 2")
+    print(card1,"               ",card2)
+    
+def game(player1,player2):
+    card1=player1[0]
+    card2=player2[0]
+    if card1<card2:       #player 2 victory
+        player1.pop(0)
+        player2.append(card1)
+        player2.pop(0)
+        player2.append(card2)
+        result(player1,player2,card1,card2)
+        print("Player 2 wins !!")
+        print(" ")
+        print(" ")
+    elif card1>card2:     #player 1 victory
+        player2.pop(0)
+        player1.append(card2)
+        player1.pop(0)
+        player1.append(card1)
+        result(player1,player2,card1,card2)
+        print("Player 1 wins !!")
+        print(" ")
+        print(" ")
+    elif card1==card2:
+        print("War !!")
+        card_war1=[]      #list for the war
+        card_war2=[]
+        card_war1.append(card1)      #returned card added to the card deck
+        card_war2.append(card2)
+        player2.pop(0)
+        player1.pop(0)
+        
+        while card1==card2:       #if war continues
+            card_war1.append(0)      #card played in war
+            card_war2.append(0)
+            card1=player1[0]
+            card2=player2[0]
+            player1.pop(0)
+            player2.pop(0)
+            card_war1.append(0)      #card played in war
+            card_war2.append(0)
+            card1=player1[0]
+            card2=player2[0]
+            
+            if card1<card2:       #player 2 victory -- war
+                player2+card_war1
+                player2+card_war2
+                result(player1,player2,card1,card2)
+                print("Player 2 wins !!")
+                print(" ")
+                print(" ")
+
+            elif card1>card2:     #player 1 victory -- war
+                player1+card_war2
+                player1+card_war1
+                result(player1,player2,card1,card2)
+                print("Player 1 wins !!")
+                print(" ")
+                print(" ")
+
+
+shuffle_cards(player1,player2,game_cards)
+
+while player1 or player2:
+    if player1==[]:     #deck of player 1 is empty and end of the game
+        print("Player 1 lost.")
+        break
+    elif player2==[]:       #deck of player 2 is empty and end of the game
+        print("Player 2 lost.")
+        break
+    else:       #neither of the 2 packets is empty so it continues
+        game(player1,player2)
